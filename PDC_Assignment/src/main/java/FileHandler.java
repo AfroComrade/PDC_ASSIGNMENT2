@@ -11,8 +11,8 @@ public class FileHandler
     private File file;
     private FileReadHandler readHandler;
     private FileWriteHandler writeHandler;
-    protected String DATA_LOC = KnowledgebaseController.DATA_LOCATION;
-    protected final String ACCESS_TXT = KnowledgebaseController.ACCESS_TXT;
+    protected String DATA_LOC = KBMasterController.DATA_LOCATION;
+    protected final String ACCESS_TXT = KBMasterController.ACCESS_TXT;
     protected boolean accessFound = false;
     protected boolean writeFound;
     protected BaseFile writeBFile;
@@ -41,7 +41,7 @@ public class FileHandler
     */
     public void createAccessText()
     {
-        this.writeHandler.createAccessText(KnowledgebaseController.folders);
+        this.writeHandler.createAccessText(KBMasterController.folders);
     }
     
     public boolean exists(File file)

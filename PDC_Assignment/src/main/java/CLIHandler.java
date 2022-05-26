@@ -26,11 +26,11 @@ public class CLIHandler
     public static int mainMenu()
     {
         int option = -1;
-        while(KnowledgebaseController.running && (option < 0 || option > 4))
+        while(KBMasterController.running && (option < 0 || option > 4))
         {
             String input = CLInterface.printMenu();
             checkRunning(input);
-            if (KnowledgebaseController.running)
+            if (KBMasterController.running)
             {
                 option = parseInputToInt(input);
                 if (option < 0 || option > 4)
@@ -75,7 +75,7 @@ public class CLIHandler
         
         if (!running)
         {
-            KnowledgebaseController.running = false;
+            KBMasterController.running = false;
             System.out.println("Goodbye!");
         }
         return (running);
@@ -112,13 +112,13 @@ public class CLIHandler
         String absolutePath = "";
         boolean correctAbsolute = false;
         
-        while (KnowledgebaseController.running && !correctAbsolute)
+        while (KBMasterController.running && !correctAbsolute)
         {
             absolutePath = CLInterface.addAbsolute();
             checkRunning(absolutePath);
             if (checkAdd(absolutePath) > 0)
                 correctAbsolute = true;
-            else if (KnowledgebaseController.running)
+            else if (KBMasterController.running)
                 CLInterface.printInvalidFile();
         }
         
@@ -130,13 +130,13 @@ public class CLIHandler
         String newName = "";
         boolean correctNewName = false;
         
-        while (KnowledgebaseController.running && !correctNewName)
+        while (KBMasterController.running && !correctNewName)
         {
             newName = CLInterface.addNewName();
             checkRunning(newName);
             if (checkAdd(newName) > 0)
                 correctNewName = true;
-            else if (KnowledgebaseController.running)
+            else if (KBMasterController.running)
                 CLInterface.printInvalidFile();
                 
         }
@@ -148,13 +148,13 @@ public class CLIHandler
         String folderName = "";
         boolean correctFolderSize = false;
         
-        while (KnowledgebaseController.running && !correctFolderSize)
+        while (KBMasterController.running && !correctFolderSize)
         {
             folderName = CLInterface.addFolderName();
             checkRunning(folderName);
             if (folderName.length() >= 4)
                 correctFolderSize = true;
-            else if (KnowledgebaseController.running)
+            else if (KBMasterController.running)
                 CLInterface.printInvalidFolder();
         }
         return folderName;
@@ -198,13 +198,13 @@ public class CLIHandler
         String writeFile = "";
         boolean correctWritePath = false;
         
-        while (KnowledgebaseController.running && !correctWritePath)
+        while (KBMasterController.running && !correctWritePath)
         {
             writeFile = CLInterface.writeFile();
             checkRunning(writeFile);
             if (checkAdd(writeFile) > 0)
                 correctWritePath = true;
-            else if (KnowledgebaseController.running)
+            else if (KBMasterController.running)
                 CLInterface.printInvalidFile();
         }
 

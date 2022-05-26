@@ -30,6 +30,11 @@ public abstract class BaseFile implements Comparable
         this.accessed++;
     }
     
+    public String getPath()
+    {
+        return LOC;
+    }
+    
     //  First compare based on how often a file is accessed.
     //  If they are accessed an equal number of times, 
     //      compare strings alphabetically.
@@ -45,5 +50,11 @@ public abstract class BaseFile implements Comparable
             e.printStackTrace();
         }
         return 0;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return name;
     }
 }

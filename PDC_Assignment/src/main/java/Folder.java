@@ -42,4 +42,20 @@ public class Folder
     {
         bFiles.remove(x);
     }
+    
+    public String[] toList()
+    {
+        String[] toReturn = new String[bFiles.size()];
+        for (int i = 0; i < bFiles.size(); i++)
+        {
+            toReturn[i] = bFiles.get(i).name;
+        }
+        return toReturn;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return name;
+    }
 }

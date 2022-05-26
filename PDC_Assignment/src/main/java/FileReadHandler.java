@@ -127,7 +127,7 @@ public class FileReadHandler
         String fileFound = fileHandler.DATA_LOC + "/";
         fileHandler.writeFound = false;
         
-        for (Folder folder : KnowledgebaseController.folders)
+        for (Folder folder : KBMasterController.folders)
         {
             if (folder.name.toLowerCase().contains(s))
             {

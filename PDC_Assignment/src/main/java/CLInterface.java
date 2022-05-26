@@ -16,7 +16,7 @@ public class CLInterface
     {
         System.out.println("Welcome to Yeran's Knowledge Repository!");
         System.out.print("Current Folders to be searched: ");
-        for (Folder f : KnowledgebaseController.folders)
+        for (Folder f : KBMasterController.folders)
             System.out.print(f.name+" ");
         System.out.println("\nPress x at any time to quit   ");
         System.out.println("------------------------------");

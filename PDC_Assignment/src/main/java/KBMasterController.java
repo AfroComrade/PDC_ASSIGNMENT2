@@ -9,14 +9,15 @@ import java.util.LinkedList;
     The results of all outputs are passed from FileReadHandler as linked lists
 */
 
-public class KnowledgebaseController
+public class KBMasterController
 {
-    private static final FileHandler fileHandler = new FileHandler();
+    public static final FileHandler fileHandler = new FileHandler();
     public static boolean running = true; // Modified in the CLIHandler if the user ever puts '0' or 'x' in an input
     public static ArrayList<Folder> folders;
     public static final String DATA_LOCATION = "./data";
     public static final String ACCESS_TXT = "accessed.txt";
 
+    public KBGUI GUI;
     
     
     //  --------------------------- MAIN MENU LOOP CONTROLLER ---------------------------  //
@@ -26,21 +27,20 @@ public class KnowledgebaseController
     */
     public static void main(String[] args) 
     {
-        start();
-        fileHandler.createAccessText();
+        new KBMasterController().start();
+        //fileHandler.createAccessText();
     }
     
     /*  Load folder name and csv names into memory
         Show intro text and get the first option from the user
     */
-    public static void start()
+    public void start()
     {
-        folders = fileHandler.getFolders(); 
-        int input = CLIHandler.intro();     
-        if (running)
-            functionPerform(input);
+        folders = fileHandler.getFolders();
+        KBGUIController GUIHandler = new KBGUIController();
+        
     }
-    
+
     //  Called at the end of every loop if the program is still running to search/add/remove
     public static void functionPerform(int input) 
     {
