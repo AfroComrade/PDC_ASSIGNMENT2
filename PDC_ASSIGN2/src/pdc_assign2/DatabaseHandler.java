@@ -7,7 +7,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -21,7 +23,8 @@ import java.util.LinkedList;
 public class DatabaseHandler
 {
     Connection conn;
-    String url = "jdbc:derby:KnowledgeDB; create=true";
+    //String url = "jdbc:derby:KnowledgeDB; create=true";
+    String url = "jdbc:derby://localhost:1527/KnowledgeDB; create=true";
     String dbusername = "pdc";
     String dbpassword = "pdc";
     
@@ -37,11 +40,9 @@ public class DatabaseHandler
         try {
             if(!checkTableExists(foldersName))
             {
-                String createUserInfoTable = "CREATE TABLE " + foldersName + " (id INT, folder VARCHAR(50), file VARCHAR(50))";
+                String createUserInfoTable = "CREATE TABLE \"" + foldersName + "\"  (id INT, folder VARCHAR(50), file VARCHAR(50))";
                 updateDB(createUserInfoTable);
             }
-            
-            // Create tables for each file, and entries in 'Folders' for each basefile
             
             for (Folder folder : KBMasterController.folders)
             {
@@ -53,22 +54,9 @@ public class DatabaseHandler
                     }
                         
                 }
-                
-                
-                
-                /*
-                            String insertTableCommand = "INSERT INTO " + bFile.name + " VALUES (";
-            for (int j = 0; j < titles.length - 1; j++)
-            {
-                insertTableCommand += data[i][j] + " VARCHAR[50], ";
-            }
-            insertTableCommand += data[i][titles.length - 1] + "VARCHAR(50))";
-
-                */
             }
             
         } catch (Throwable e) {
-            System.out.println("Error");
             e.printStackTrace();
         }
         
@@ -76,15 +64,66 @@ public class DatabaseHandler
     
     public static void main(String[] args)
     {
+
+        /*
         String name = "annual-enterprise-survey-2020-financial-year-provisional-csv.csv";
-        CSV csv = new CSV(name, "Business/" + name, 0);
+        CSV csv = new CSV(name, "./data/Business/" + name, 0);
         LinkedList ll = new LinkedList();
         ll.add(csv);
         
         Folder folder = new Folder("Business", "./data" + "/Business", ll);
         
         DatabaseHandler dbhandle = new DatabaseHandler();
+        dbhandle.updateDB("DROP TABLE \"" + name + "\"");
         dbhandle.createTableFromBFile(csv, folder);
+        
+        System.out.println("Check");
+        dbhandle.printTable("\"" + csv.toString() + "\"");
+        */
+    }
+    
+    private String[] processToStringArray(String s)
+    {
+        ArrayList<String> strings = new ArrayList<>();
+        
+        String newString = "";
+        boolean quoting = false;
+        for (int i = 0; i < s.length(); i++)
+        {
+            switch (s.charAt(i)) {
+                case '\'':
+                    newString += "";
+                case '�':
+                    newString += '-';
+                    break;
+                case ',':
+                    if (quoting)
+                    {
+                        newString += s.charAt(i);
+                        break;
+                    }
+                    if (newString.length() > 50)
+                        newString = newString.substring(0, 50);
+                    strings.add(newString);
+                    newString = "";
+                    break;
+                case '\"':
+                    if (!quoting)
+                        quoting = true;
+                    else
+                        quoting = false;
+                    break;
+                default:
+                    newString += s.charAt(i);
+            }
+        }
+        
+        
+        String[] processedStrings = new String[strings.size()];
+        for (int i = 0; i < processedStrings.length; i++)
+            processedStrings[i] = strings.get(i);
+
+        return processedStrings;
     }
     
     private boolean createTableFromBFile(BaseFile bFile, Folder folder)
@@ -93,37 +132,43 @@ public class DatabaseHandler
             return false;
         
         LinkedList<String> ll = KBMasterController.fileHandler.readFile(bFile.getPath());
-        String[] titles = ll.remove().split(",");
+        String[] titles = processToStringArray(ll.remove());
         
-        String createTableCommand = "CREATE TABLE " + bFile.name + " (";
+        String createTableCommand = "CREATE TABLE \"" + bFile.name + "\"  (\"";
+        
         for (int i = 0; i < titles.length-1; i++)
-            createTableCommand += titles[i] + " VARCHAR(50), ";
-        createTableCommand += titles[titles.length-1] + " VARCHAR(50))";
+        {
+            createTableCommand += titles[i] + "\" VARCHAR(50), \"";
+        }
+        createTableCommand += titles[titles.length-1] + "\" VARCHAR(50))";
+        System.out.println(createTableCommand);
         this.updateDB(createTableCommand);
         
         
         String[][] data = new String[ll.size()][titles.length];
         for (int i = 0; i < ll.size(); i++)
-            data[i] = ll.get(i).split(",");
-        
+            data[i] = processToStringArray(ll.remove());
         
         for (int i = 0; i < data.length; i++)
         {
-            String insertTableCommand = "INSERT INTO " + bFile.name + " VALUES (";
+            String insertTableCommand = "INSERT INTO \"" + bFile.name + "\" VALUES (\'";
             for (int j = 0; j < titles.length - 1; j++)
             {
-                insertTableCommand += data[i][j] + " VARCHAR[50], ";
+                insertTableCommand += data[i][j] + "\', \'";
             }
-            insertTableCommand += data[i][titles.length - 1] + "VARCHAR(50))";
+            insertTableCommand += data[i][titles.length - 1] + "\')";
+            //System.out.println(insertTableCommand);
             
             updateDB(insertTableCommand);
         }
         
+        /*
         String insertFolderTable = "INSERT INTO " + foldersName + " VALUES (" 
                 + bFile.name.hashCode() + " INT, "
                 + folder.name + " VARCHAR(50), " 
-                + bFile.name + " VARCHAR(50)";
+                + bFile.name + " VARCHAR(50))";
         updateDB(insertFolderTable);
+        */
         return true;
     }
     
@@ -136,6 +181,7 @@ public class DatabaseHandler
     }
     
     private boolean checkTableExists(String newTableName) {
+        String name = "\"" + newTableName + "\"";
         boolean exists = false;
         try {
             DatabaseMetaData dbmd = conn.getMetaData();
@@ -143,7 +189,7 @@ public class DatabaseHandler
             //Statement dropStatement=null;
             while (rsDBMeta.next()) {
                 String tableName = rsDBMeta.getString("TABLE_NAME");
-                if (tableName.compareToIgnoreCase(newTableName) == 0) {
+                if (tableName.compareToIgnoreCase(name) == 0) {
                     exists = true;
                 }
             }
@@ -151,9 +197,26 @@ public class DatabaseHandler
                 rsDBMeta.close();
             }
         } catch (SQLException ex) {
+            System.out.println("Error checktablexists: " +name);
             ex.printStackTrace();
         }
         return exists;
+    }
+    
+    public void printTable(String table)
+    {
+        ResultSet rs = queryDB("SELECT * FROM " + table);
+        List<String> sids = new ArrayList<String>();
+        try {
+            while (rs.next())
+            {
+                sids.add(rs.getString(2));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for (String s : sids)
+            System.out.println(s);
     }
     
     public void updateDB(String sql) {
@@ -166,6 +229,7 @@ public class DatabaseHandler
             statement.executeUpdate(sql);
 
         } catch (SQLException ex) {
+            System.out.println("Command: " + sql);
             System.out.println(ex.getMessage());
         }
     }

@@ -39,7 +39,9 @@ public class KBMasterController
     public void start()
     {
         folders = fileHandler.getFolders();
-        KBGUIController GUIHandler = new KBGUIController();
+        DatabaseHandler dbhandle = new DatabaseHandler();
+        dbhandle.dbsetup();
+        //KBGUIController GUIHandler = new KBGUIController();
         
     }
     
