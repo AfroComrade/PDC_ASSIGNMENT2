@@ -53,14 +53,6 @@ public class FileHandler
     
     //  --------------------------- SEARCH IMPLEMENTATION ---------------------------  //
     
-    public LinkedList<String> search(String s)
-    {
-        s = s.toLowerCase();
-        LinkedList<String> matches = readHandler.search(s);
-        
-        return matches;
-    }
-    
     public LinkedList<String> readFile(String fileName)
     {
         return readHandler.readFile(fileName);
@@ -72,7 +64,7 @@ public class FileHandler
     {
         return writeHandler.addFile(content, fileName, folderName);
     }
-    
+        
     //  --------------------------- REMOVE IMPLEMENTATION ---------------------------  //
     
     public void removeLoaded(Folder f, String s)

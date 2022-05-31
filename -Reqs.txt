@@ -1,0 +1,31 @@
+REQUIREMENTS
+
+GUI
+ - Users can figure out GUI easily, user-friendly messages for false input
+ - GUI are organized nicely
+ - GUI can quit or restart/go back to menu at any time
+
+DATABASE
+ - Contains a DB
+ - Manage Data reading and writing
+ - More than 3 reads
+ - More than 3 writes
+ - Derby Embedded mode
+ - Program can connect to db without starting db service
+
+SOFTWARE FUNCTIONALITY
+ - Opened by Netbeans12
+ - No runtime errors
+ - No manual config for db or jars
+ - Complex enough, with common features
+ - Robust, input handled witout exception
+
+SOFTWARE DESIGN
+ - More than 11 reasonable classes
+ - Relationships are well presented
+ - OOP concepts applied
+ - Clear separation of UI and model
+ - Easy to read comments
+ - No obvious code smell
+ - Version control applied
+ - Five test cases included

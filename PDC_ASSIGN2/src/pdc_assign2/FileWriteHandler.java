@@ -78,7 +78,6 @@ public class FileWriteHandler
             for (String line : content)
             {
                 bfWriter.write(line);
-                bfWriter.newLine();
             }
             addSuccessful = true;
             bfWriter.close();
@@ -96,7 +95,18 @@ public class FileWriteHandler
     {
         File file = new File(folderLoc + "/" + fileName);
         if (fileHandler.exists(file))
-            file.delete();
+        {
+            if (file.delete())
+            {
+                System.out.println("Deleted?");
+            }
+            else
+            {
+                System.out.println("Not deleted");
+            }
+            
+        }
+            
     }
     
     //  --------------------------- WRITE IMPLEMENTATION ---------------------------  //

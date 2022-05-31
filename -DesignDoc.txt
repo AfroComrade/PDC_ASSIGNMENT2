@@ -1,0 +1,20 @@
+JDK version:
+openjdk version "11.0.11" 2021-04-20
+
+NetBeans version:
+Apache NetBeans IDE 12.4
+
+DESIGN:
+
+DATABASE:
+ - Database class that is initialized to handle connection
+ - Update classes
+ - Create and import tables from CSV files
+ - Unhooked from GUI
+
+GUI:
+ - Display tables some way (table swing class? Graph?)
+ - Button to import
+ - Combo box to show all the csvs imported?
+
+UNIT TESTS:

@@ -118,140 +118,6 @@ public class FileReadHandler
         }
     }
     
-    //  --------------------------- SEARCH IMPLEMENTATION ---------------------------  //
-    /*  Search through the files, recording any that contain the searched string
-        If the string is ever identical to the file name, read from and return
-        that file's contents
-    */
-    public LinkedList<String> search(String s)
-    {
-        LinkedList<String> matches = new LinkedList<>();
-        String fileFound = fileHandler.DATA_LOC + "/";
-        fileHandler.writeFound = false;
-        
-        for (Folder folder : KBMasterController.folders)
-        {
-            if (folder.name.toLowerCase().contains(s))
-            {
-                matches.add("Folder: " + folder.name);
-                matches.add("Contains...");
-                for (BaseFile bFile : folder.bFiles)
-                {
-                    String fName = bFile.getName();
-                    if (fName.toLowerCase().equals(s))
-                    {
-                        fileHandler.writeFound = true;
-                        fileHandler.writeBFile = bFile;
-                        bFile.incrementAccessed();
-                        folder.sort();
-                        if (bFile.type == FileType.CSV)
-                            return csvPrint(fileFound + folder.name + "/" + fName);
-                        else if (bFile.type == FileType.TEXT)
-                            return textPrint(fileFound + folder.name + "/" + fName);
-                    }
-                    else
-                        matches.add("    " + fName);
-                }
-            }
-            else
-            {
-                for (BaseFile bFile : folder.bFiles)
-                {
-                    String fName = bFile.getName();
-                    if (fName.toLowerCase().equals(s))
-                    {
-                        fileHandler.writeFound = true;
-                        fileHandler.writeBFile = bFile;
-                        bFile.incrementAccessed();
-                        folder.sort();
-                        if (bFile.type == FileType.CSV)
-                            return csvPrint(fileFound + folder.name + "/" + fName);
-                        else if (bFile.type == FileType.TEXT)
-                            return textPrint(fileFound + folder.name + "/" + fName);
-                    }
-                    else if (fName.toLowerCase().contains(s))
-                        matches.add(fName);
-                }
-            }
-        }
-        
-        return matches;
-    }
-    
-    //  Class for printing if it's a text file
-    public LinkedList<String> textPrint(String csvName)
-    {
-        LinkedList<String> csvString = new LinkedList<>();
-        
-        FileReader fReader;
-        BufferedReader bfReader;
-        try {
-            fReader = new FileReader(csvName);
-            bfReader = new BufferedReader(fReader);
-            char input = (char)bfReader.read(); 
-            String line = "";
-            while (input != 65535) // Exact value for end of file
-            {
-                if (input == '\n')
-                {
-                    csvString.add(line.substring(0, line.length()-1));
-                    line = "";
-                }
-                else
-                    line += input;
-                
-                input = (char)bfReader.read();
-            }
-            
-            csvString.add(line);
-            bfReader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return csvString;
-    }
-    
-    //  Class for printing if it's a CSV file
-    public LinkedList<String> csvPrint(String csvName)
-    {
-        LinkedList<String> csvString = new LinkedList<>();
-        
-        FileReader fReader;
-        BufferedReader bfReader;
-        try {
-            fReader = new FileReader(csvName);
-            bfReader = new BufferedReader(fReader);
-            // we read per-character so we can replace commas with lines
-            // Make the output look marginally cleaner
-            char input = (char)bfReader.read();
-            String line = "";
-            while (input != 65535)
-            {
-                if(input == ',')
-                {
-                    line += "  |  ";
-                }
-                else if (input == '\n')
-                {
-                    csvString.add(line.substring(0, line.length()-1));
-                    line = "";
-                }
-                else
-                    line += input;
-                
-                input = (char)bfReader.read();
-            }
-            
-            csvString.add(line);
-            bfReader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return csvString;
-    }
-
     //  --------------------------- ADD IMPLEMENTATION ---------------------------  //
     public LinkedList<String> readFile(String fileName)
     {
@@ -272,6 +138,7 @@ public class FileReadHandler
                 content.add(input + "\n");
                 input = bfReader.readLine();
             }
+            bfReader.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

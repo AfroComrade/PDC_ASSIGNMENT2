@@ -9,8 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
-
+import java.sql.SQLSyntaxErrorException;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -32,15 +31,15 @@ public class DatabaseHandler
     
 
     public DatabaseHandler() {
-        establishConnection();
+        
     }
-
     
     public void dbsetup() {
         try {
-            if(!checkTableExists(foldersName))
+            establishConnection();
+            if(!checkTableExists("\"" + foldersName + "\""))
             {
-                String createUserInfoTable = "CREATE TABLE \"" + foldersName + "\"  (id INT, folder VARCHAR(50), file VARCHAR(50))";
+                String createUserInfoTable = "CREATE TABLE \"" + foldersName + "\"  (id INT, folder VARCHAR(50), file VARCHAR(250))";
                 updateDB(createUserInfoTable);
             }
             
@@ -48,38 +47,74 @@ public class DatabaseHandler
             {
                 for (BaseFile bFile : folder.bFiles)
                 {
-                    if (!(checkTableExists(bFile.name) && checkTableInFolders(bFile.name)))
+                    String name = bFile.name;
+                    if (name.length() > 250)
+                        name = name.substring(0, 250);
+                    if (!(checkTableExists(name)) && !(checkTableInFolders(name)))
                     {
                         createTableFromBFile(bFile, folder);
                     }
-                        
                 }
             }
+            System.out.println("dbsetup complete");
+            conn.close();
             
         } catch (Throwable e) {
             e.printStackTrace();
         }
-        
     }
     
-    public static void main(String[] args)
+    public String[] getFiles(String folder)
     {
+        establishConnection();
+        String getFiles = "SELECT file FROM \"" + foldersName + "\" WHERE folder = \'" + folder + "\'";
+        
+        try {
+            ResultSet rs = queryDB(getFiles);
+            rs.last();
+            int rows = rs.getRow();
+            rs.first();
+            
+            String [] files = new String[rows];
+            for (int i = 0; i < rows; i++)
+            {
+                files[i] = rs.getString("file");
+                rs.next();
+            }
+            rs.close();
+            conn.close();
+            return files;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public String[] getFolders()
+    {
+        establishConnection();
+        String getFolders = "SELECT DISTINCT folder FROM \"" + foldersName + "\"";
+        ResultSet rs = queryDB(getFolders);
 
-        /*
-        String name = "annual-enterprise-survey-2020-financial-year-provisional-csv.csv";
-        CSV csv = new CSV(name, "./data/Business/" + name, 0);
-        LinkedList ll = new LinkedList();
-        ll.add(csv);
-        
-        Folder folder = new Folder("Business", "./data" + "/Business", ll);
-        
-        DatabaseHandler dbhandle = new DatabaseHandler();
-        dbhandle.updateDB("DROP TABLE \"" + name + "\"");
-        dbhandle.createTableFromBFile(csv, folder);
-        
-        System.out.println("Check");
-        dbhandle.printTable("\"" + csv.toString() + "\"");
-        */
+        try {
+            rs.last();
+            int rows = rs.getRow();
+            rs.first();
+            
+            String[] folders = new String[rows];
+            for (int i = 0; i < rows; i++)
+            {
+                folders[i] = rs.getString("folder");
+                rs.next();
+            }
+            rs.close();
+            conn.close();
+            return folders;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } 
+        return null;
     }
     
     private String[] processToStringArray(String s)
@@ -91,8 +126,12 @@ public class DatabaseHandler
         for (int i = 0; i < s.length(); i++)
         {
             switch (s.charAt(i)) {
+                case '\n':
+                    strings.add(newString);
+                    break;
                 case '\'':
                     newString += "";
+                    break;
                 case '�':
                     newString += '-';
                     break;
@@ -103,7 +142,9 @@ public class DatabaseHandler
                         break;
                     }
                     if (newString.length() > 50)
+                    {
                         newString = newString.substring(0, 50);
+                    }
                     strings.add(newString);
                     newString = "";
                     break;
@@ -117,8 +158,6 @@ public class DatabaseHandler
                     newString += s.charAt(i);
             }
         }
-        
-        
         String[] processedStrings = new String[strings.size()];
         for (int i = 0; i < processedStrings.length; i++)
             processedStrings[i] = strings.get(i);
@@ -128,68 +167,104 @@ public class DatabaseHandler
     
     private boolean createTableFromBFile(BaseFile bFile, Folder folder)
     {
-        if (checkTableExists(bFile.name))
+        String name = bFile.name;
+        if (name.length() > 250)
+            name = name.substring(0, 250);
+        if (checkTableExists(name) || checkTableInFolders(name))
             return false;
         
         LinkedList<String> ll = KBMasterController.fileHandler.readFile(bFile.getPath());
+        System.out.println("BFile: " + bFile.getPath());
         String[] titles = processToStringArray(ll.remove());
         
-        String createTableCommand = "CREATE TABLE \"" + bFile.name + "\"  (\"";
-        
-        for (int i = 0; i < titles.length-1; i++)
+        String createTableCommand = "CREATE TABLE \"" + name + "\"  (\"";
+        for (int i = 0; i < titles.length - 1; i++)
         {
             createTableCommand += titles[i] + "\" VARCHAR(50), \"";
         }
-        createTableCommand += titles[titles.length-1] + "\" VARCHAR(50))";
+        createTableCommand += titles[titles.length - 1] + "\" VARCHAR(50))";
         System.out.println(createTableCommand);
         this.updateDB(createTableCommand);
         
         
         String[][] data = new String[ll.size()][titles.length];
-        for (int i = 0; i < ll.size(); i++)
+        for (int i = 0; i < data.length; i++)
             data[i] = processToStringArray(ll.remove());
         
         for (int i = 0; i < data.length; i++)
         {
-            String insertTableCommand = "INSERT INTO \"" + bFile.name + "\" VALUES (\'";
+            String insertTableCommand = "INSERT INTO \"" + name + "\" VALUES (\'";
             for (int j = 0; j < titles.length - 1; j++)
             {
+                if (data[i][j].length() > 50)
+                {
+                    data[i][j] = data[i][j].substring(0, 50);
+                }
                 insertTableCommand += data[i][j] + "\', \'";
             }
+            if (data[i][titles.length - 1].length() > 50)
+                data[i][titles.length - 1] = data[i][titles.length-1].substring(0, 50);
             insertTableCommand += data[i][titles.length - 1] + "\')";
-            //System.out.println(insertTableCommand);
-            
             updateDB(insertTableCommand);
         }
         
-        /*
-        String insertFolderTable = "INSERT INTO " + foldersName + " VALUES (" 
-                + bFile.name.hashCode() + " INT, "
-                + folder.name + " VARCHAR(50), " 
-                + bFile.name + " VARCHAR(50))";
+        String insertFolderTable = "INSERT INTO \"" + foldersName + "\" VALUES (" 
+                + Math.abs(bFile.name.hashCode()) + ", \'"
+                + folder.name + "\', \'" 
+                + name + "\')";
         updateDB(insertFolderTable);
-        */
+        
+        return true;
+    }
+    
+    public boolean removeTable(String tableName)
+    {
+        establishConnection();
+        if (!checkTableExists(tableName))
+            return false;
+        
+        String removeTable = "DROP TABLE \"" + tableName + "\"";
+        updateDB(removeTable);
+        String removeEntry = "DELETE FROM \"" + foldersName + "\" WHERE id = " + Math.abs(tableName.hashCode());
+        updateDB(removeEntry);
+        
+        try {
+            conn.close();
+        } catch (Exception e) {}
         return true;
     }
     
     private boolean checkTableInFolders(String tableName)
     {
-        String selectFolders = "SELECT * FROM " + foldersName + " WHERE id = " + tableName.hashCode() + " AND name = " + tableName;
-        ResultSet rs = queryDB(selectFolders);
-        System.out.println(rs);
-        return true;
+        String selectFolders = "SELECT * FROM \"" + foldersName + "\" WHERE id = " + Math.abs(tableName.hashCode()) + " AND file = \"" + tableName + "\"";
+        boolean exists = true;
+        try {
+            establishConnection();
+            this.conn.createStatement().executeQuery(selectFolders);
+        } catch (SQLException ex) { 
+            if (ex instanceof SQLSyntaxErrorException)
+            {
+                exists = false;
+            }
+            else
+            {
+                ex.printStackTrace();
+            }
+        }
+        return exists;
     }
-    
+
     private boolean checkTableExists(String newTableName) {
-        String name = "\"" + newTableName + "\"";
         boolean exists = false;
         try {
+            establishConnection();
+
             DatabaseMetaData dbmd = conn.getMetaData();
             ResultSet rsDBMeta = dbmd.getTables(null, null, null, null);//types);
             //Statement dropStatement=null;
             while (rsDBMeta.next()) {
                 String tableName = rsDBMeta.getString("TABLE_NAME");
-                if (tableName.compareToIgnoreCase(name) == 0) {
+                if (tableName.compareToIgnoreCase(newTableName) == 0) {
                     exists = true;
                 }
             }
@@ -197,51 +272,46 @@ public class DatabaseHandler
                 rsDBMeta.close();
             }
         } catch (SQLException ex) {
-            System.out.println("Error checktablexists: " +name);
+            System.out.println("Error checktablexists: " +newTableName);
             ex.printStackTrace();
         }
         return exists;
     }
     
-    public void printTable(String table)
+    public ResultSet getTable(String tableName)
     {
-        ResultSet rs = queryDB("SELECT * FROM " + table);
-        List<String> sids = new ArrayList<String>();
-        try {
-            while (rs.next())
-            {
-                sids.add(rs.getString(2));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        for (String s : sids)
-            System.out.println(s);
+        establishConnection();
+        String name = tableName;
+        if (name.length() > 250)
+            name = tableName.substring(0, 250);
+        String getTable = "SELECT * FROM \"" + name + "\"";
+        ResultSet rs = queryDB(getTable);
+        return rs;
     }
     
-    public void updateDB(String sql) {
-
+    public void updateDB(String sql) 
+    {
         Connection connection = this.conn;
         Statement statement = null;
 
         try {
             statement = connection.createStatement();
             statement.executeUpdate(sql);
-
+            statement.close();
         } catch (SQLException ex) {
             System.out.println("Command: " + sql);
             System.out.println(ex.getMessage());
         }
     }
     
-    public ResultSet queryDB(String sql) {
-
+    public ResultSet queryDB(String sql) 
+    {
         Connection connection = this.conn;
         Statement statement = null;
         ResultSet resultSet = null;
 
         try {
-            statement = connection.createStatement();
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             resultSet = statement.executeQuery(sql);
 
         } catch (SQLException ex) {
@@ -249,16 +319,22 @@ public class DatabaseHandler
         }
         return resultSet;
     }
-    
+
     public void establishConnection() {
         //Establish a connection to Database
         try {
             conn = DriverManager.getConnection(url, dbusername, dbpassword);
-            System.out.println(url+" Connected.");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
+    }
+    public void dropConnection() 
+    {
+        try {
+            conn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }
 

@@ -15,8 +15,7 @@ Period,Birth_Death,Region,Count
 2005,Births,Canterbury region,6603
 2005,Births,Otago region,2151
 2005,Births,Southland region,1212
-2005,Births,"Region not stated or
-area outside region",57
+2005,Births,"Region not stated or area outside region",57
 2005,Births,New Zealand,57747
 2005,Deaths,Northland region,1167
 2005,Deaths,Auckland region,6873
@@ -34,8 +33,7 @@ area outside region",57
 2005,Deaths,Canterbury region,3816
 2005,Deaths,Otago region,1428
 2005,Deaths,Southland region,723
-2005,Deaths,"Region not stated or
-area outside region",129
+2005,Deaths,"Region not stated or area outside region",129
 2005,Deaths,New Zealand,27033
 2006,Births,Northland region,2244
 2006,Births,Auckland region,21333
@@ -53,8 +51,7 @@ area outside region",129
 2006,Births,Canterbury region,6777
 2006,Births,Otago region,2148
 2006,Births,Southland region,1233
-2006,Births,"Region not stated or
-area outside region",135
+2006,Births,"Region not stated or area outside region",135
 2006,Births,New Zealand,59193
 2006,Deaths,Northland region,1164
 2006,Deaths,Auckland region,7152
@@ -72,8 +69,7 @@ area outside region",135
 2006,Deaths,Canterbury region,4014
 2006,Deaths,Otago region,1458
 2006,Deaths,Southland region,765
-2006,Deaths,"Region not stated or
-area outside region",135
+2006,Deaths,"Region not stated or area outside region",135
 2006,Deaths,New Zealand,28245
 2007,Births,Northland region,2322
 2007,Births,Auckland region,23007
@@ -91,8 +87,7 @@ area outside region",135
 2007,Births,Canterbury region,7548
 2007,Births,Otago region,2349
 2007,Births,Southland region,1350
-2007,Births,"Region not stated or
-area outside region",174
+2007,Births,"Region not stated or area outside region",174
 2007,Births,New Zealand,64044
 2007,Deaths,Northland region,1224
 2007,Deaths,Auckland region,7218
@@ -110,8 +105,7 @@ area outside region",174
 2007,Deaths,Canterbury region,4107
 2007,Deaths,Otago region,1530
 2007,Deaths,Southland region,783
-2007,Deaths,"Region not stated or
-area outside region",132
+2007,Deaths,"Region not stated or area outside region",132
 2007,Deaths,New Zealand,28521
 2008,Births,Northland region,2304
 2008,Births,Auckland region,23112
@@ -129,8 +123,7 @@ area outside region",132
 2008,Births,Canterbury region,7284
 2008,Births,Otago region,2367
 2008,Births,Southland region,1338
-2008,Births,"Region not stated or
-area outside region",63
+2008,Births,"Region not stated or area outside region",63
 2008,Births,New Zealand,64344
 2008,Deaths,Northland region,1344
 2008,Deaths,Auckland region,7404
@@ -148,8 +141,7 @@ area outside region",63
 2008,Deaths,Canterbury region,4017
 2008,Deaths,Otago region,1617
 2008,Deaths,Southland region,786
-2008,Deaths,"Region not stated or
-area outside region",108
+2008,Deaths,"Region not stated or area outside region",108
 2008,Deaths,New Zealand,29190
 2009,Births,Northland region,2199
 2009,Births,Auckland region,22605
@@ -167,8 +159,7 @@ area outside region",108
 2009,Births,Canterbury region,7161
 2009,Births,Otago region,2352
 2009,Births,Southland region,1356
-2009,Births,"Region not stated or
-area outside region",90
+2009,Births,"Region not stated or area outside region",90
 2009,Births,New Zealand,62544
 2009,Deaths,Northland region,1287
 2009,Deaths,Auckland region,7386
@@ -186,8 +177,7 @@ area outside region",90
 2009,Deaths,Canterbury region,4206
 2009,Deaths,Otago region,1560
 2009,Deaths,Southland region,765
-2009,Deaths,"Region not stated or
-area outside region",66
+2009,Deaths,"Region not stated or area outside region",66
 2009,Deaths,New Zealand,28962
 2010,Births,Northland region,2397
 2010,Births,Auckland region,23214
@@ -205,8 +195,7 @@ area outside region",66
 2010,Births,Canterbury region,7305
 2010,Births,Otago region,2331
 2010,Births,Southland region,1404
-2010,Births,"Region not stated or
-area outside region",81
+2010,Births,"Region not stated or area outside region",81
 2010,Births,New Zealand,63897
 2010,Deaths,Northland region,1233
 2010,Deaths,Auckland region,7227
@@ -224,8 +213,7 @@ area outside region",81
 2010,Deaths,Canterbury region,4272
 2010,Deaths,Otago region,1392
 2010,Deaths,Southland region,744
-2010,Deaths,"Region not stated or
-area outside region",48
+2010,Deaths,"Region not stated or area outside region",48
 2010,Deaths,New Zealand,28437
 2011,Births,Northland region,2199
 2011,Births,Auckland region,22659
@@ -243,8 +231,7 @@ area outside region",48
 2011,Births,Canterbury region,6693
 2011,Births,Otago region,2340
 2011,Births,Southland region,1332
-2011,Births,"Region not stated or
-area outside region",24
+2011,Births,"Region not stated or area outside region",24
 2011,Births,New Zealand,61401
 2011,Deaths,Northland region,1365
 2011,Deaths,Auckland region,7692
@@ -262,8 +249,7 @@ area outside region",24
 2011,Deaths,Canterbury region,4473
 2011,Deaths,Otago region,1542
 2011,Deaths,Southland region,807
-2011,Deaths,"Region not stated or
-area outside region",27
+2011,Deaths,"Region not stated or area outside region",27
 2011,Deaths,New Zealand,30081
 2012,Births,Northland region,2310
 2012,Births,Auckland region,22836
@@ -281,8 +267,7 @@ area outside region",27
 2012,Births,Canterbury region,6633
 2012,Births,Otago region,2337
 2012,Births,Southland region,1245
-2012,Births,"Region not stated or
-area outside region",18
+2012,Births,"Region not stated or area outside region",18
 2012,Births,New Zealand,61179
 2012,Deaths,Northland region,1374
 2012,Deaths,Auckland region,7665
@@ -300,8 +285,7 @@ area outside region",18
 2012,Deaths,Canterbury region,4359
 2012,Deaths,Otago region,1635
 2012,Deaths,Southland region,783
-2012,Deaths,"Region not stated or
-area outside region",21
+2012,Deaths,"Region not stated or area outside region",21
 2012,Deaths,New Zealand,30099
 2013,Births,Northland region,2124
 2013,Births,Auckland region,21825
@@ -319,8 +303,7 @@ area outside region",21
 2013,Births,Canterbury region,6543
 2013,Births,Otago region,2235
 2013,Births,Southland region,1200
-2013,Births,"Region not stated or
-area outside region",12
+2013,Births,"Region not stated or area outside region",12
 2013,Births,New Zealand,58716
 2013,Deaths,Northland region,1365
 2013,Deaths,Auckland region,7566
@@ -338,8 +321,7 @@ area outside region",12
 2013,Deaths,Canterbury region,4098
 2013,Deaths,Otago region,1581
 2013,Deaths,Southland region,780
-2013,Deaths,"Region not stated or
-area outside region",24
+2013,Deaths,"Region not stated or area outside region",24
 2013,Deaths,New Zealand,29568
 2014,Births,Northland region,2049
 2014,Births,Auckland region,21429
@@ -357,8 +339,7 @@ area outside region",24
 2014,Births,Canterbury region,6573
 2014,Births,Otago region,2088
 2014,Births,Southland region,1134
-2014,Births,"Region not stated or
-area outside region",21
+2014,Births,"Region not stated or area outside region",21
 2014,Births,New Zealand,57243
 2014,Deaths,Northland region,1377
 2014,Deaths,Auckland region,8034
@@ -376,8 +357,7 @@ area outside region",21
 2014,Deaths,Canterbury region,4422
 2014,Deaths,Otago region,1689
 2014,Deaths,Southland region,816
-2014,Deaths,"Region not stated or
-area outside region",42
+2014,Deaths,"Region not stated or area outside region",42
 2014,Deaths,New Zealand,31062
 2015,Births,Northland region,2196
 2015,Births,Auckland region,22434
@@ -395,8 +375,7 @@ area outside region",42
 2015,Births,Canterbury region,7077
 2015,Births,Otago region,2358
 2015,Births,Southland region,1224
-2015,Births,"Region not stated or
-area outside region",12
+2015,Births,"Region not stated or area outside region",12
 2015,Births,New Zealand,61038
 2015,Deaths,Northland region,1443
 2015,Deaths,Auckland region,8175
@@ -414,8 +393,7 @@ area outside region",12
 2015,Deaths,Canterbury region,4305
 2015,Deaths,Otago region,1641
 2015,Deaths,Southland region,879
-2015,Deaths,"Region not stated or
-area outside region",24
+2015,Deaths,"Region not stated or area outside region",24
 2015,Deaths,New Zealand,31608
 2016,Births,Northland region,2229
 2016,Births,Auckland region,21810
@@ -433,8 +411,7 @@ area outside region",24
 2016,Births,Canterbury region,7014
 2016,Births,Otago region,2199
 2016,Births,Southland region,1161
-2016,Births,"Region not stated or
-area outside region",15
+2016,Births,"Region not stated or area outside region",15
 2016,Births,New Zealand,59427
 2016,Deaths,Northland region,1563
 2016,Deaths,Auckland region,8007
@@ -452,8 +429,7 @@ area outside region",15
 2016,Deaths,Canterbury region,4158
 2016,Deaths,Otago region,1536
 2016,Deaths,Southland region,855
-2016,Deaths,"Region not stated or
-area outside region",24
+2016,Deaths,"Region not stated or area outside region",24
 2016,Deaths,New Zealand,31179
 2017,Births,Northland region,2247
 2017,Births,Auckland region,21393
@@ -471,8 +447,7 @@ area outside region",24
 2017,Births,Canterbury region,7065
 2017,Births,Otago region,2241
 2017,Births,Southland region,1215
-2017,Births,"Region not stated or
-area outside region",15
+2017,Births,"Region not stated or area outside region",15
 2017,Births,New Zealand,59610
 2017,Deaths,Northland region,1611
 2017,Deaths,Auckland region,8577
@@ -490,8 +465,7 @@ area outside region",15
 2017,Deaths,Canterbury region,4494
 2017,Deaths,Otago region,1647
 2017,Deaths,Southland region,849
-2017,Deaths,"Region not stated or
-area outside region",21
+2017,Deaths,"Region not stated or area outside region",21
 2017,Deaths,New Zealand,33342
 2018,Births,Northland region,2181
 2018,Births,Auckland region,20712
@@ -509,8 +483,7 @@ area outside region",21
 2018,Births,Canterbury region,6939
 2018,Births,Otago region,2148
 2018,Births,Southland region,1119
-2018,Births,"Region not stated or
-area outside region",18
+2018,Births,"Region not stated or area outside region",18
 2018,Births,New Zealand,58020
 2018,Deaths,Northland region,1692
 2018,Deaths,Auckland region,8586
@@ -528,8 +501,7 @@ area outside region",18
 2018,Deaths,Canterbury region,4431
 2018,Deaths,Otago region,1626
 2018,Deaths,Southland region,804
-2018,Deaths,"Region not stated or
-area outside region",15
+2018,Deaths,"Region not stated or area outside region",15
 2018,Deaths,New Zealand,33225
 2019,Births,Northland region,2250
 2019,Births,Auckland region,21405
@@ -547,8 +519,7 @@ area outside region",15
 2019,Births,Canterbury region,7164
 2019,Births,Otago region,2310
 2019,Births,Southland region,1152
-2019,Births,"Region not stated or
-area outside region",21
+2019,Births,"Region not stated or area outside region",21
 2019,Births,New Zealand,59637
 2019,Deaths,Northland region,1662
 2019,Deaths,Auckland region,8619
@@ -566,8 +537,7 @@ area outside region",21
 2019,Deaths,Canterbury region,4608
 2019,Deaths,Otago region,1695
 2019,Deaths,Southland region,888
-2019,Deaths,"Region not stated or
-area outside region",21
+2019,Deaths,"Region not stated or area outside region",21
 2019,Deaths,New Zealand,34260
 2020,Births,Northland region,2244
 2020,Births,Auckland region,20385
@@ -585,8 +555,7 @@ area outside region",21
 2020,Births,Canterbury region,6780
 2020,Births,Otago region,2238
 2020,Births,Southland region,1083
-2020,Births,"Region not stated or
-area outside region",18
+2020,Births,"Region not stated or area outside region",18
 2020,Births,New Zealand,57576
 2020,Deaths,Northland region,1644
 2020,Deaths,Auckland region,8328
@@ -604,8 +573,7 @@ area outside region",18
 2020,Deaths,Canterbury region,4476
 2020,Deaths,Otago region,1677
 2020,Deaths,Southland region,894
-2020,Deaths,"Region not stated or
-area outside region",30
+2020,Deaths,"Region not stated or area outside region",30
 2020,Deaths,New Zealand,32613
 2021,Births,Northland region,2262
 2021,Births,Auckland region,20520
@@ -623,8 +591,7 @@ area outside region",30
 2021,Births,Canterbury region,7158
 2021,Births,Otago region,2325
 2021,Births,Southland region,1059
-2021,Births,"Region not stated or
-area outside region",12
+2021,Births,"Region not stated or area outside region",12
 2021,Births,New Zealand,58659
 2021,Deaths,Northland region,1722
 2021,Deaths,Auckland region,8907
@@ -642,6 +609,5 @@ area outside region",12
 2021,Deaths,Canterbury region,4689
 2021,Deaths,Otago region,1764
 2021,Deaths,Southland region,891
-2021,Deaths,"Region not stated or
-area outside region",39
+2021,Deaths,"Region not stated or area outside region",39
 2021,Deaths,New Zealand,34929
