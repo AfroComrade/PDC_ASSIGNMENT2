@@ -10,10 +10,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.sql.SQLSyntaxErrorException;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
+/*  Handle DB Commands
+    
+*/  
 
 /**
  *
@@ -22,8 +22,7 @@ import java.sql.SQLSyntaxErrorException;
 public class DatabaseHandler
 {
     Connection conn;
-    //String url = "jdbc:derby:KnowledgeDB; create=true";
-    String url = "jdbc:derby://localhost:1527/KnowledgeDB; create=true";
+    String url = "jdbc:derby:KnowledgeDB_Ebd; create=true";
     String dbusername = "pdc";
     String dbpassword = "pdc";
     
@@ -34,6 +33,7 @@ public class DatabaseHandler
         
     }
     
+    //  Read in files from the project. Any files not loaded in the database, get loaded here
     public void dbsetup() {
         try {
             establishConnection();
@@ -64,6 +64,7 @@ public class DatabaseHandler
         }
     }
     
+    // Used by the Files lies in KBGUI
     public String[] getFiles(String folder)
     {
         establishConnection();
@@ -91,6 +92,7 @@ public class DatabaseHandler
         return null;
     }
     
+    // Get the list of folders for folder JList
     public String[] getFolders()
     {
         establishConnection();
@@ -117,6 +119,7 @@ public class DatabaseHandler
         return null;
     }
     
+    // We need to read each character individually in order to create tables properly on the GUI
     private String[] processToStringArray(String s)
     {
         ArrayList<String> strings = new ArrayList<>();
@@ -165,6 +168,8 @@ public class DatabaseHandler
         return processedStrings;
     }
     
+    //  Create a table for each file that doesn't exist in the db
+    //  Also insert the data into that table as imported from the dsv
     private boolean createTableFromBFile(BaseFile bFile, Folder folder)
     {
         String name = bFile.name;
@@ -174,7 +179,6 @@ public class DatabaseHandler
             return false;
         
         LinkedList<String> ll = KBMasterController.fileHandler.readFile(bFile.getPath());
-        System.out.println("BFile: " + bFile.getPath());
         String[] titles = processToStringArray(ll.remove());
         
         String createTableCommand = "CREATE TABLE \"" + name + "\"  (\"";
@@ -183,7 +187,6 @@ public class DatabaseHandler
             createTableCommand += titles[i] + "\" VARCHAR(50), \"";
         }
         createTableCommand += titles[titles.length - 1] + "\" VARCHAR(50))";
-        System.out.println(createTableCommand);
         this.updateDB(createTableCommand);
         
         
@@ -217,6 +220,7 @@ public class DatabaseHandler
         return true;
     }
     
+    // Simple function for deleting tables
     public boolean removeTable(String tableName)
     {
         establishConnection();
@@ -234,6 +238,7 @@ public class DatabaseHandler
         return true;
     }
     
+    //  Simple function for checking a table exists in the folders table
     private boolean checkTableInFolders(String tableName)
     {
         String selectFolders = "SELECT * FROM \"" + foldersName + "\" WHERE id = " + Math.abs(tableName.hashCode()) + " AND file = \"" + tableName + "\"";
@@ -254,6 +259,7 @@ public class DatabaseHandler
         return exists;
     }
 
+    //  Simple function for checking a table exists in the database
     private boolean checkTableExists(String newTableName) {
         boolean exists = false;
         try {
@@ -278,6 +284,9 @@ public class DatabaseHandler
         return exists;
     }
     
+    //  NOTE: This function doesn't close the result set.
+    //  It is only called when we click on a csv in the GUI
+    //  In here, we close it.
     public ResultSet getTable(String tableName)
     {
         establishConnection();
@@ -289,6 +298,7 @@ public class DatabaseHandler
         return rs;
     }
     
+    // Basic funtion for updating a DB
     public void updateDB(String sql) 
     {
         Connection connection = this.conn;
@@ -304,6 +314,7 @@ public class DatabaseHandler
         }
     }
     
+    // Basic funtion for querying a DB
     public ResultSet queryDB(String sql) 
     {
         Connection connection = this.conn;
@@ -320,14 +331,16 @@ public class DatabaseHandler
         return resultSet;
     }
 
+    // Allow establish and drop outside of dbhandle
     public void establishConnection() {
-        //Establish a connection to Database
         try {
             conn = DriverManager.getConnection(url, dbusername, dbpassword);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
+    
+    // Allow establish and drop outside of dbhandle
     public void dropConnection() 
     {
         try {

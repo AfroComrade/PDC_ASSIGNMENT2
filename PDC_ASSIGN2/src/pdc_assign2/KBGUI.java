@@ -21,6 +21,10 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+/* Staticly handle the JPanel, initialize everything
+    All listeners handled in KBGUICONTROLLER
+*/
+
 public class KBGUI extends JPanel
 {
     Dimension screenSize;

@@ -21,6 +21,11 @@ import java.sql.ResultSetMetaData;
  *
  * @author Yeran
  */
+
+/*  
+    Handle button and JList listeners here    
+*/  
+
 public class KBGUIController
 {
     public KBGUI GUI;
@@ -69,7 +74,7 @@ public class KBGUIController
                     LinkedList<String> list = KBMasterController.fileHandler.readFile(filePath);
                     if (!list.isEmpty() && KBMasterController.fileHandler.add(list, newPath, folder))
                     {
-                        boolean added = KBMasterController.addFileToFolders(newPath, folder);
+                        KBMasterController.addFileToFolders(newPath, folder);
                         KBMasterController.dbhandle.dbsetup();
                     }
                     GUI.update();
