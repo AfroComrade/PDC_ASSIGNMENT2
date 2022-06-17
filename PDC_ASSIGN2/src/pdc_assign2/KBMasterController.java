@@ -100,10 +100,8 @@ public class KBMasterController
             {
                 for (BaseFile bFile : folder.bFiles)
                 {
-                    System.out.println("Checking " + bFile + " against " + s);
                     if (bFile.name.equals(s))
                     {
-                        System.out.println("Found");
                         fileHandler.removeLoaded(folder, s);
                         folder.remove(bFile);
                         return true;

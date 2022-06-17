@@ -1,14 +1,11 @@
 package pdc_assign2;
 
 
-import com.sun.java.accessibility.util.GUIInitializedListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
-import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.TableModel;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 
